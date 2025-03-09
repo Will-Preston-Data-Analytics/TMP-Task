@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Mar  9 15:28:44 2025
+Created on Sun Mar  9 18:11:51 2025
 
 @author: willp
 """
@@ -8,6 +8,9 @@ Created on Sun Mar  9 15:28:44 2025
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib
+import matplotlib.font_manager as fm
+
 
 
 def load_data(filepath):
@@ -89,23 +92,32 @@ def create_bar_chart(table1):
     grouped_percentages = grouped_percentages.T
 
     ax = grouped_percentages.plot(kind='barh', figsize=(12, 6), color=['#00AEEF', '#FB349C', '#FFC000']) #barh creates horizontal bar chart.
-    plt.title('Percentage of Responses by Group', fontname='Franklin Gothic Book')
-    plt.xlabel('Percentage (%)', fontname='Franklin Gothic Book')
-    plt.ylabel('Responses', fontname='Franklin Gothic Book') #switched axis labels.
-    plt.xticks(fontname='Franklin Gothic Book')
-    plt.yticks(fontname='Franklin Gothic Book')
-    plt.legend(prop={'family': 'Franklin Gothic Book'})
+    #plt.title('Percentage of Responses by Group', fontname='Franklin Gothic Book Regular')
+    #plt.xlabel('Percentage (%)', fontname='Franklin Gothic Book Regular')
+    #plt.ylabel('Responses', fontname='Franklin Gothic Book Regular') #switched axis labels.
+    #plt.xticks(fontname='Franklin Gothic Book Regular')
+    #plt.yticks(fontname='Franklin Gothic Book Regular')
+    #plt.legend(prop={'family': 'Franklin Gothic Book Regular'})
+    
+    plt.title('Percentage of Responses by Group', fontproperties=font_prop)
+    plt.xlabel('Percentage (%)', fontproperties=font_prop)
+    plt.ylabel('Responses', fontproperties=font_prop)
+    plt.xticks(fontproperties=font_prop)
+    plt.yticks(fontproperties=font_prop)
+    plt.legend(prop=font_prop)
+    
     plt.tight_layout()
     plt.show()
 
 
 # Example usage
+font_path = 'C:\WINDOWS\FONTS\ARIAL.TTF' 
+font_prop = fm.FontProperties(fname=font_path)
 filepath = r'C:\Users\willp\OneDrive\Desktop\TMP Tasks\JDA Task 2 - Market Research\task_2_data.csv'
 table1, table2 = load_data(filepath)
 table1 = map_response_ids(table1, table2)
-table1 = clean_data(table1)
+#table1 = clean_data(table1)
 create_bar_chart(table1)
 
 print("Table 1 (Trimmed):")
 print(table1.head())
-
